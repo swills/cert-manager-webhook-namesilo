@@ -7,7 +7,6 @@ on:
 
 env:
   GOGC: 50
-  GOPROXY: https://athens.mouf.io,direct
 
 jobs:
   main:

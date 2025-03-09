@@ -3,7 +3,6 @@ on: [push]
 
 env:
   GOGC: 50
-  GOPROXY: https://athens.mouf.io,direct
 
 jobs:
   build:
