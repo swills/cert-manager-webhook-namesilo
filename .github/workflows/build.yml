@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: arc
 
     steps:
       - uses: actions/checkout@v4
