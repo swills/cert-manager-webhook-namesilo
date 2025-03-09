@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  GOGC: 50
+
 jobs:
   golangci:
     name: lint
