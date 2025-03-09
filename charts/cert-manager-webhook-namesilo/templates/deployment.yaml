@@ -19,6 +19,9 @@ spec:
       labels:
         app: {{ include "namesilo-webhook.name" . }}
         release: {{ .Release.Name }}
+        {{- with .Values.podLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ include "namesilo-webhook.fullname" . }}
       containers:
@@ -49,15 +52,10 @@ spec:
             - name: certs
               mountPath: /tls
               readOnly: true
+{{- if .Values.resources }}
           resources:
-          {{- with .Values.resources }}
-            {{- toYaml . | nindent 8 }}
-          {{- end }}
-          labels:
-          {{- with .Values.podLabels }}
-            {{- toYaml . | nindent 8 }}
-          {{- end }}
 {{ toYaml .Values.resources | indent 12 }}
+{{- end }}
       volumes:
         - name: certs
           secret:
