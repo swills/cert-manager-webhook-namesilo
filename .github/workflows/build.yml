@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: arc
+    runs-on: arc-runner-set
 
     steps:
       - uses: actions/checkout@v4
