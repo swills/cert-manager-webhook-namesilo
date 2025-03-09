@@ -50,6 +50,13 @@ spec:
               mountPath: /tls
               readOnly: true
           resources:
+          {{- with .Values.resources }}
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          labels:
+          {{- with .Values.podLabels }}
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
         - name: certs
