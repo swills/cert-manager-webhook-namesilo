@@ -10,7 +10,7 @@ env:
 
 jobs:
   main:
-    runs-on: arc-runner-set-ns
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Inject slug/short variables
