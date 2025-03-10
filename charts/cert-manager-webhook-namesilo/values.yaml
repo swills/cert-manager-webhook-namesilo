@@ -14,7 +14,7 @@ certManager:
 
 image:
   repository: ghcr.io/swills/cert-manager-webhook-namesilo/cert-manager-webhook-namesilo
-  tag: v0.1.15
+  tag: v0.1.16
   pullPolicy: IfNotPresent
 
 nameOverride: ""
