@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   namesilo-webhook:
   - apiVersion: v1
+    appVersion: v0.1.17
+    created: "2025-03-24T18:55:22.699156109Z"
+    description: namesilo cert-manager-webhook
+    digest: 26b723e1caf8d87209ed03873e3f3c099ebea8f7b2b295bb21768a013962a99f
+    name: namesilo-webhook
+    urls:
+    - https://github.com/swills/cert-manager-webhook-namesilo/releases/download/namesilo-webhook-v0.1.17/namesilo-webhook-v0.1.17.tgz
+    version: v0.1.17
+  - apiVersion: v1
     appVersion: v0.1.16
     created: "2025-03-10T00:45:36.583340924Z"
     description: namesilo cert-manager-webhook
@@ -100,4 +109,4 @@ entries:
     urls:
     - https://github.com/swills/cert-manager-webhook-namesilo/releases/download/namesilo-webhook-0.0.1/namesilo-webhook-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-10T00:45:36.58354209Z"
+generated: "2025-03-24T18:55:22.69921327Z"
