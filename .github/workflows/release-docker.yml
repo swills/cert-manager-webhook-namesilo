@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v5
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -40,4 +38,4 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}/cert-manager-webhook-namesilo:${{ env.GITHUB_REF_SLUG }}
+          tags: ghcr.io/${{ github.repository }}/cert-manager-webhook-namesilo:${{ github.ref_name }}
