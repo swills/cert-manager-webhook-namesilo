@@ -118,7 +118,7 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 	resp, err = namesilo.Call[namesilo.Response](apiKey, "dnsAddRecord", map[string]string{
 		"domain":  namesilo.GetDomainFromZone(challengeRequest.ResolvedZone),
 		"rrtype":  "TXT",
-		"rrhost":  strings.TrimSuffix(challengeRequest.ResolvedFQDN, "."+challengeRequest.ResolvedZone),
+		"rrhost":  strings.TrimSuffix(challengeRequest.ResolvedFQDN, "."+strings.ToLower(challengeRequest.ResolvedZone)),
 		"rrvalue": challengeRequest.Key,
 	})
 	if err != nil {
