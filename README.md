@@ -4,8 +4,10 @@
 
 # ACME webhook for namesilo
 
+[![Go](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/build.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/build.yml)
+[![golangci-lint](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/golangci-lint.yml)
+[![pages-build-deployment](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/pages/pages-build-deployment)
 [![Release Image](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-docker.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-docker.yml)
-
 [![Release Charts](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-charts.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-charts.yml)
 
 ## How to use the helm chart:
