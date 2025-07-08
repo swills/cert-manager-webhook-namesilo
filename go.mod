@@ -1,6 +1,6 @@
 module github.com/swills/cert-manager-webhook-namesilo
 
-go 1.23.10
+go 1.23.11
 
 require (
 	github.com/breml/rootcerts v0.2.21
