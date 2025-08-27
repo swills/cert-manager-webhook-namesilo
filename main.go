@@ -109,7 +109,7 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 		return err
 	}
 
-	slog.Info("Presenting TXT record",
+	slog.InfoContext(context.Background(), "Presenting TXT record",
 		"key", challengeRequest.Key,
 		"fqdn", challengeRequest.ResolvedFQDN,
 		"zone", challengeRequest.ResolvedZone,
@@ -129,7 +129,7 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if resp.Reply.Code != "300" {
-		slog.Error("Error adding TXT record",
+		slog.ErrorContext(context.Background(), "Error adding TXT record",
 			"key", challengeRequest.Key,
 			"fqdn", challengeRequest.ResolvedFQDN,
 			"zone", challengeRequest.ResolvedZone,
@@ -139,7 +139,7 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 		return fmt.Errorf("error adding TXT record: %s, %w", resp.Reply.Detail, ErrTXTRecordCreate)
 	}
 
-	slog.Info("Added TXT record",
+	slog.InfoContext(context.Background(), "Added TXT record",
 		"key", challengeRequest.Key,
 		"fqdn", challengeRequest.ResolvedFQDN,
 		"zone", challengeRequest.ResolvedZone,
@@ -179,7 +179,7 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 		"domain": namesilo.GetDomainFromZone(challengeRequest.ResolvedZone),
 	})
 	if err != nil {
-		slog.Error("Error listing TXT records",
+		slog.ErrorContext(context.Background(), "Error listing TXT records",
 			"fqdn", challengeRequest.ResolvedFQDN,
 			"zone", challengeRequest.ResolvedZone,
 			"err", err,
@@ -204,7 +204,7 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if targetRecordID == "" {
-		slog.Error("No TXT record found",
+		slog.ErrorContext(context.Background(), "No TXT record found",
 			"fqdn", challengeRequest.ResolvedFQDN,
 			"records", listResp.Reply.ResourceRecord,
 		)
@@ -212,7 +212,7 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 		return fmt.Errorf("no TXT record found for %s, %w", challengeRequest.ResolvedFQDN, ErrTXTRecordNotFound)
 	}
 
-	slog.Info("Found TXT record",
+	slog.InfoContext(context.Background(), "Found TXT record",
 		"target", targetRecordID,
 		"fqdn", challengeRequest.ResolvedFQDN,
 		"zone", challengeRequest.ResolvedZone,
@@ -230,7 +230,7 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if deleteResp.Reply.Code != "300" {
-		slog.Error("Error deleting TXT record",
+		slog.ErrorContext(context.Background(), "Error deleting TXT record",
 			"recordID", targetRecordID,
 			"fqdn", challengeRequest.ResolvedFQDN,
 			"zons", challengeRequest.ResolvedZone,

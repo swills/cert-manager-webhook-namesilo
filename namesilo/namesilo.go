@@ -96,7 +96,7 @@ func Call[Resp any](apiKey string, operation string, params map[string]string) (
 
 	err = json.Unmarshal(responseBody, &resp)
 	if err != nil {
-		slog.Error("unmarshal error",
+		slog.ErrorContext(backgroundCtx, "unmarshal error",
 			"body", responseBody,
 			"err", err,
 		)
