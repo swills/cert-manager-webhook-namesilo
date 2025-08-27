@@ -5,10 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"strings"
-
-	"github.com/swills/cert-manager-webhook-namesilo/utils"
 )
 
 type Response struct {
@@ -95,8 +94,12 @@ func Call[Resp any](apiKey string, operation string, params map[string]string) (
 		return resp, fmt.Errorf("error reading response body: %w", err)
 	}
 
-	if err := json.Unmarshal(responseBody, &resp); err != nil {
-		utils.Log("namesilo unmarshal fail: %s, data: %s", err.Error(), string(responseBody))
+	err = json.Unmarshal(responseBody, &resp)
+	if err != nil {
+		slog.Error("unmarshal error",
+			"body", responseBody,
+			"err", err,
+		)
 
 		return resp, fmt.Errorf("namesilo unmarshal json fail: %w", err)
 	}

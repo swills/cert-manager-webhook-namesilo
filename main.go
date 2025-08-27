@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os"
 	"strings"
 	_ "time/tzdata"
@@ -13,7 +14,6 @@ import (
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook/cmd"
 	cmmetav1 "github.com/cert-manager/cert-manager/pkg/apis/meta/v1"
 	"github.com/swills/cert-manager-webhook-namesilo/namesilo"
-	"github.com/swills/cert-manager-webhook-namesilo/utils"
 	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -109,8 +109,11 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 		return err
 	}
 
-	utils.Log("Presenting TXT record %s for %s, %s",
-		challengeRequest.Key, challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone)
+	slog.Info("Presenting TXT record",
+		"key", challengeRequest.Key,
+		"fqdn", challengeRequest.ResolvedFQDN,
+		"zone", challengeRequest.ResolvedZone,
+	)
 
 	// sets a record in the DNS provider's console
 	var resp namesilo.Response
@@ -126,14 +129,21 @@ func (c *customDNSProviderSolver) Present(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if resp.Reply.Code != "300" {
-		utils.Log("Error adding TXT record %s for %s, %s: %s",
-			challengeRequest.Key, challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone, resp.Reply.Detail)
+		slog.Error("Error adding TXT record",
+			"key", challengeRequest.Key,
+			"fqdn", challengeRequest.ResolvedFQDN,
+			"zone", challengeRequest.ResolvedZone,
+			"detail", resp.Reply.Detail,
+		)
 
 		return fmt.Errorf("error adding TXT record: %s, %w", resp.Reply.Detail, ErrTXTRecordCreate)
 	}
 
-	utils.Log("Added TXT record %s for %s, %s",
-		challengeRequest.Key, challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone)
+	slog.Info("Added TXT record",
+		"key", challengeRequest.Key,
+		"fqdn", challengeRequest.ResolvedFQDN,
+		"zone", challengeRequest.ResolvedZone,
+	)
 
 	return nil
 }
@@ -169,8 +179,11 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 		"domain": namesilo.GetDomainFromZone(challengeRequest.ResolvedZone),
 	})
 	if err != nil {
-		utils.Log("Error listing TXT records for %s, %s: %s",
-			challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone, err.Error())
+		slog.Error("Error listing TXT records",
+			"fqdn", challengeRequest.ResolvedFQDN,
+			"zone", challengeRequest.ResolvedZone,
+			"err", err,
+		)
 
 		return err
 	}
@@ -191,17 +204,19 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if targetRecordID == "" {
-		utils.Log("No TXT record found for %s", challengeRequest.ResolvedFQDN)
-
-		for _, r := range listResp.Reply.ResourceRecord {
-			utils.Log("%s %s %s %s", r.ResourceID, r.Type, r.Host, r.Value)
-		}
+		slog.Error("No TXT record found",
+			"fqdn", challengeRequest.ResolvedFQDN,
+			"records", listResp.Reply.ResourceRecord,
+		)
 
 		return fmt.Errorf("no TXT record found for %s, %w", challengeRequest.ResolvedFQDN, ErrTXTRecordNotFound)
 	}
 
-	utils.Log("Found TXT record %s for %s, %s",
-		targetRecordID, challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone)
+	slog.Info("Found TXT record",
+		"target", targetRecordID,
+		"fqdn", challengeRequest.ResolvedFQDN,
+		"zone", challengeRequest.ResolvedZone,
+	)
 
 	// 2. delete the TXT record
 	var deleteResp namesilo.Response
@@ -215,8 +230,12 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	if deleteResp.Reply.Code != "300" {
-		utils.Log("Error deleting TXT record %s for %s, %s: %s",
-			targetRecordID, challengeRequest.ResolvedFQDN, challengeRequest.ResolvedZone, deleteResp.Reply.Detail)
+		slog.Error("Error deleting TXT record",
+			"recordID", targetRecordID,
+			"fqdn", challengeRequest.ResolvedFQDN,
+			"zons", challengeRequest.ResolvedZone,
+			"detail", deleteResp.Reply.Detail,
+		)
 
 		return fmt.Errorf("error deleting TXT record: %s, %w", deleteResp.Reply.Detail, ErrTXTRecordDelete)
 	}
