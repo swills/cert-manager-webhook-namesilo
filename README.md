@@ -9,6 +9,7 @@
 [![pages-build-deployment](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/pages/pages-build-deployment)
 [![Release Image](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-docker.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-docker.yml)
 [![Release Charts](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-charts.yml/badge.svg)](https://github.com/swills/cert-manager-webhook-namesilo/actions/workflows/release-charts.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/swills/cert-manager-webhook-namesilo)](https://goreportcard.com/report/github.com/swills/cert-manager-webhook-namesilo)
 
 ## How to use the helm chart:
 
