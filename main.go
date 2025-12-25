@@ -9,11 +9,11 @@ import (
 	"strings"
 	_ "time/tzdata"
 
-	_ "github.com/breml/rootcerts"
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook/cmd"
 	cmmetav1 "github.com/cert-manager/cert-manager/pkg/apis/meta/v1"
 	"github.com/swills/cert-manager-webhook-namesilo/namesilo"
+	_ "golang.org/x/crypto/x509roots/fallback"
 	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"

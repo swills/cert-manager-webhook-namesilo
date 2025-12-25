@@ -17,9 +17,9 @@ jobs:
     name: lint
     runs-on: arc-runner-set-ns
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - name: Install dependencies
@@ -27,5 +27,5 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v9
         with:
-          version: v2.3.0
+          version: v2.7.2
           args: --timeout=60m
