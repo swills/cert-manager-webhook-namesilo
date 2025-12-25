@@ -5,7 +5,7 @@ go 1.25.5
 require (
 	github.com/cert-manager/cert-manager v1.19.2
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20251210140736-7dacc380ba00
-	k8s.io/apiextensions-apiserver v0.35.0
+	k8s.io/apiextensions-apiserver v0.34.1
 	k8s.io/apimachinery v0.35.0
 	k8s.io/client-go v0.35.0
 )
