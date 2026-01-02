@@ -1,4 +1,4 @@
-name: Build Image Remote
+name: Build Containers
 
 on:
   push:
