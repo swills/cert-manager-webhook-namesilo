@@ -10,7 +10,7 @@ env:
 
 jobs:
   main:
-    runs-on: arc-runner-set-na
+    runs-on: arc-runner-set-ns
     steps:
       - uses: actions/checkout@v6
 
