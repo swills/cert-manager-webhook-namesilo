@@ -1,0 +1,42 @@
+name: Build Image Remote
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+env:
+  GOGC: 50
+
+jobs:
+  main:
+    runs-on: arc-runner-set-ns
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Create Docker amd64 context
+        run: |
+          docker context create docker00 --docker \
+            "host=tcp://docker.mouf.io:2376,ca=/certs/docker00/ca-cert.pem,cert=/certs/docker00/client-cert.pem,key=/certs/docker00/client-key.pem"
+
+      - name: Create Docker arm64 context
+        run: |
+          docker context create docker01 --docker \
+            "host=tcp://docker1.mouf.io:2376,ca=/certs/docker01/ca-cert.pem,cert=/certs/docker01/client-cert.pem,key=/certs/docker01/client-key.pem"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          endpoint: docker00
+          platforms: linux/amd64
+          append: |
+            - name: docker01
+              platforms: linux/arm64
+              endpoint: docker01
+
+      - name: Build
+        id: docker_build
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
