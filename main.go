@@ -206,7 +206,6 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	if targetRecordID == "" {
 		slog.ErrorContext(context.Background(), "No TXT record found",
 			"fqdn", challengeRequest.ResolvedFQDN,
-			"records", listResp.Reply.ResourceRecord,
 		)
 
 		return fmt.Errorf("no TXT record found for %s, %w", challengeRequest.ResolvedFQDN, ErrTXTRecordNotFound)
