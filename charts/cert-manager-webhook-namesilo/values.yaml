@@ -17,7 +17,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/swills/cert-manager-webhook-namesilo/cert-manager-webhook-namesilo
-  tag: v0.1.36
+  tag: v0.1.38
   pullPolicy: IfNotPresent
 
 nameOverride: ""
