@@ -43,7 +43,6 @@ func (c *CodeWrapper) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-//nolint:ireturn
 func Call[Resp any](apiKey string, operation string, params map[string]string) (Resp, error) {
 	var err error
 
