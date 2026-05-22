@@ -193,6 +193,7 @@ func (c *customDNSProviderSolver) CleanUp(challengeRequest *v1alpha1.ChallengeRe
 	}
 
 	var targetRecordID string
+
 	targetHost := strings.TrimSuffix(challengeRequest.ResolvedFQDN, "."+strings.ToLower(challengeRequest.ResolvedZone))
 
 	for _, r := range listResp.Reply.ResourceRecord {
